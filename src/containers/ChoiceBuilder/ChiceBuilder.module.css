@@ -1,0 +1,8 @@
+.ChoiceBuilder {
+  
+}
+
+.ChoiceBuilder article {
+  display: flex;
+  flex: 0.5;
+}
