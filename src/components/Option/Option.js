@@ -1,27 +1,47 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import classes from './Option.module.css';
-
-const option = (props) => {
-  let transformedOption;
-  if (props.childOptions) {
-    transformedOption = props.childOptions.map(option => {
-      return (
-        <input
-          onKeyDown={(e) => props.addNewOption(e, props.type)}
-          key={option.key} 
-          onChange={props.updateOption}></input>
-      )      
-    })
+class Option extends Component {
+  constructor(props) {
+    super(props);
+    this.optionInput = [];
+    this.focusTextInput = this.focusTextInput.bind(this);
   }
 
-  return (
-    <div className={classes.Option} key={option.key}>
-      {transformedOption}
-    </div>
-  )
-    
+  focusTextInput = (key) => {
+    this.optionInput[key].current.focus();
+  }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.childOptions.length !== this.props.childOptions.length) {
+      const key = this.props.childOptions[this.props.childOptions.length - 1].key;
+      this.focusTextInput(key);
+    }
+    return true;
+  }
+
+  render() {
+    let transformedOption;
+
+    if (this.props.childOptions) {
+      transformedOption = this.props.childOptions.map(option => {
+        this.optionInput[option.key] = React.createRef();
+        return (
+          <input
+            onKeyDown={(e) => this.props.addNewOption({ e, type: this.props.type, key: option.key})}
+            onChange={this.props.updateOption}
+            key={option.key} 
+            ref={this.optionInput[option.key]}></input>
+        )      
+      })
+    }
+
+    return (
+      <div className={classes.Option}>
+        {transformedOption}
+      </div>
+    )
+  }
 }
 
-export default option;
+export default Option;

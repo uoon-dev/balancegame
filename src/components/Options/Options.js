@@ -7,8 +7,8 @@ const options = (props) => {
   return (
     <div className={classes.Options}>
       <Option
-        childOptions={props.type === 'A' ? props.options.fst : props.options.sec}
-        addNewOption={props.addNewOption} 
+        childOptions={props.type === 'fst' ? props.options.fst : props.options.sec}
+        addNewOption={props.addNewOption}
         updateOption={props.updateOption}
         type={props.type}></Option>
     </div>

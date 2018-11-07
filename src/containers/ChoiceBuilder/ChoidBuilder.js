@@ -11,36 +11,33 @@ class ChoiceBuilder extends Component {
       fst: [
         {
           key: 1,
-          text: ''
+          text: 'fst'
         }
       ],
       sec: [
         {
           key: 1,
-          text: ''
+          text: 'sec'
         }
       ]
     }
   }
 
-  addNewOption = (e, type) => {
+  addNewOption = (value) => {
+    let {e, type, key} = value;
     let newOption = { ...this.state.options };
-    let optionType;
+    let optionValue;
     if (e.key === 'Enter') {
-      switch(type) {
-        case 'A' : 
-          optionType = newOption.fst;
-          break;
-        case 'B' : 
-          optionType = newOption.sec;
-          break;
-        default: 
-          console.error('There is no type.');
-          return;
+      if (key < newOption[type].length) {
+        console.log(key, newOption[type].length);
       }
+
+      optionValue = [...newOption[type]];
       
-      const newKey = optionType[optionType.length - 1].key + 1;
-      optionType.push({key: newKey, text: ''});
+      const newKey = optionValue[optionValue.length - 1].key + 1;
+      optionValue = optionValue.concat({key: newKey, text: ''});
+      newOption[type] = optionValue;
+
       this.setState({
         options: newOption
       });
@@ -56,7 +53,7 @@ class ChoiceBuilder extends Component {
             options={this.state.options} 
             addNewOption={this.addNewOption}
             changed={this.updateOption}
-            type='A'
+            type='fst'
             />
         </article>
         <span className={classes.Versus}>vs</span>
@@ -66,7 +63,7 @@ class ChoiceBuilder extends Component {
             options={this.state.options} 
             addNewOption={this.addNewOption}
             changed={this.updateOption}
-            type='B'
+            type='sec'
             />
         </article>
       </section>
