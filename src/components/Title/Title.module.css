@@ -1,0 +1,15 @@
+.Title {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.Title input {
+  width: 50%;
+  height: 30px;
+  padding: 5px 10px;
+  font-size: 18px;
+  font-weight: 500;
+  outline: none;
+  border-radius: 4px;
+}
