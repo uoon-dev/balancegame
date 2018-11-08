@@ -8,8 +8,8 @@ class App extends Component {
   render() {
     return (
       <div className={classes.App}>
-        <header></header>
         <ChoiceBuilder />
+        <button className={classes.Submit}>등록하기</button>
       </div>
     );
   }
