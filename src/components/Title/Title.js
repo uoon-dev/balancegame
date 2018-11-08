@@ -6,7 +6,7 @@ const Title = (props) => {
   return (
     <div className={classes.Title}>
       <h1 className={classes.MainTitle}>선택지</h1>
-      <input onChange={props.changed}></input>
+      <input onChange={(e) => props.changed(e, props.type)}></input>
     </div>
   )
 }

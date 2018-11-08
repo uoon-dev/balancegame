@@ -6,21 +6,34 @@ import Options from '../../components/Options/Options';
 
 class ChoiceBuilder extends Component {
   state = {
-    choices: [],
+    choices: [
+      {
+        choiceIndex: 0,
+        title: ''
+      },
+      {
+        choiceIndex: 1,
+        title: ''
+      }
+    ],
     options: {
       fst: [
         {
           key: 1,
-          text: 'fst'
+          text: ''
         }
       ],
       sec: [
         {
           key: 1,
-          text: 'sec'
+          text: ''
         }
       ]
     }
+  }
+
+  componentDidMount() {
+    this.props.setClick(this.saveChoices);
   }
 
   addNewOption = (value) => {
@@ -43,19 +56,19 @@ class ChoiceBuilder extends Component {
   }
 
   removeOption = (value) => {
-    let {type, index} = value;
+    let {type, id} = value;
     let newOption = { ...this.state.options };
-    newOption[type] = newOption[type].filter((value) => value.key !== index);
+    newOption[type] = newOption[type].filter((value) => value.key !== id);
     this.setState({
       options: newOption
     });
   }
 
   optionKeyHandler = (value) => {
-    let {e, index} = value;
+    let {e, id} = value;
     switch (e.type) {
       case 'keydown':
-        if (e.target.value.length === 0 && index > 1 && e.key === 'Backspace' ) {
+        if (e.target.value.length === 0 && id > 1 && e.key === 'Backspace' ) {
           this.removeOption(value);
         }
         break;
@@ -69,11 +82,44 @@ class ChoiceBuilder extends Component {
     }
   }
 
+  updateOption = (value) => {
+    let {e, type, id} = value;
+    let newOption = { ...this.state.options };
+    newOption[type][id - 1].text = e.target.value;
+    this.setState({
+      options: newOption
+    });
+  }
+
+  updateTitle = (e, type) => {
+    const newChoices = [ ...this.state.choices ];
+    (type === 'fst') ? 
+      newChoices[0].title = e.target.value :
+      newChoices[1].title = e.target.value;
+    this.setState({
+      choices: newChoices
+    })
+  }
+
+  saveChoices = () => {
+    const newChoices = [ ...this.state.choices ];
+    newChoices.forEach((choice, index) => {
+      const type = index === 0 ? 'fst' : 'sec';
+      const options = [...this.state.options[type]];
+      const texts = options.map(value => value.text);
+      newChoices[index].options = texts;
+    })
+    this.setState({
+      choices: newChoices
+    })
+    console.log(this.state.choices);
+  }
+
   render() {
     return (
       <section className={classes.ChoiceBuilder}>
         <article>
-          <Title />
+          <Title changed={this.updateTitle} type='fst'/>
           <Options
             options={this.state.options} 
             addNewOption={this.addNewOption}
@@ -84,7 +130,7 @@ class ChoiceBuilder extends Component {
         </article>
         <span className={classes.Versus}>vs</span>
         <article>
-          <Title />
+          <Title changed={this.updateTitle} type='sec'/>
           <Options
             options={this.state.options} 
             addNewOption={this.addNewOption}

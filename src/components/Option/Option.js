@@ -46,9 +46,9 @@ class Option extends Component {
         return (
           <div className={classes.InputField} key={option.key}>
             <input
-              onKeyPress={(e) => this.props.optionKeyHandler({ e, type: this.props.type, index: option.key })}
-              onKeyDown={(e) => this.props.optionKeyHandler({ e, type: this.props.type, index: option.key })}
-              onChange={this.props.updateOption}
+              onKeyPress={(e) => this.props.optionKeyHandler({ e, type: this.props.type, id: option.key })}
+              onKeyDown={(e) => this.props.optionKeyHandler({ e, type: this.props.type, id: option.key })}
+              onChange={(e) => this.props.updateOption({ e, type: this.props.type, id: option.key })}
               ref={this.optionInput[option.key]}></input>
               {addBtn}
           </div>

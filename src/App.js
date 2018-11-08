@@ -8,8 +8,10 @@ class App extends Component {
   render() {
     return (
       <div className={classes.App}>
-        <ChoiceBuilder />
-        <button className={classes.Submit}>등록하기</button>
+        <ChoiceBuilder setClick={click => this.saveChoices = click}/>
+        <button 
+          className={classes.Submit}
+          onClick={() => this.saveChoices()}>등록하기</button>
       </div>
     );
   }
