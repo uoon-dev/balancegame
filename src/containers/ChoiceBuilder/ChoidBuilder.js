@@ -24,23 +24,48 @@ class ChoiceBuilder extends Component {
   }
 
   addNewOption = (value) => {
-    let {e, type, key} = value;
+    let {type} = value;
     let newOption = { ...this.state.options };
     let optionValue;
-    if (e.key === 'Enter') {
-      if (key < newOption[type].length) {
-        console.log(key, newOption[type].length);
-      }
 
+    if (newOption[type].length < 7 ) {
       optionValue = [...newOption[type]];
       
       const newKey = optionValue[optionValue.length - 1].key + 1;
       optionValue = optionValue.concat({key: newKey, text: ''});
       newOption[type] = optionValue;
-
+  
       this.setState({
         options: newOption
       });
+    }
+
+  }
+
+  removeOption = (value) => {
+    let {type, index} = value;
+    let newOption = { ...this.state.options };
+    newOption[type] = newOption[type].filter((value) => value.key !== index);
+    this.setState({
+      options: newOption
+    });
+  }
+
+  optionKeyHandler = (value) => {
+    let {e, index} = value;
+    switch (e.type) {
+      case 'keydown':
+        if (e.target.value.length === 0 && index > 1 && e.key === 'Backspace' ) {
+          this.removeOption(value);
+        }
+        break;
+      case 'keypress':
+        if (e.key === 'Enter') {
+          this.addNewOption(value);
+        }
+        break;
+      default:
+        break;
     }
   }
 
@@ -53,6 +78,7 @@ class ChoiceBuilder extends Component {
             options={this.state.options} 
             addNewOption={this.addNewOption}
             changed={this.updateOption}
+            optionKeyHandler={this.optionKeyHandler}
             type='fst'
             />
         </article>
@@ -63,6 +89,7 @@ class ChoiceBuilder extends Component {
             options={this.state.options} 
             addNewOption={this.addNewOption}
             changed={this.updateOption}
+            optionKeyHandler={this.optionKeyHandler}
             type='sec'
             />
         </article>

@@ -10,6 +10,7 @@ const options = (props) => {
         childOptions={props.type === 'fst' ? props.options.fst : props.options.sec}
         addNewOption={props.addNewOption}
         updateOption={props.updateOption}
+        optionKeyHandler={props.optionKeyHandler}
         type={props.type}></Option>
     </div>
   )
