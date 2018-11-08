@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Jua');
+
 .App {
   height: 100%;
   text-align: center;
+  font-family: 'Jua', sans-serif;
 }
 
 .App .Submit{
