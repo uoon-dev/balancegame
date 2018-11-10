@@ -118,6 +118,7 @@ class ChoiceBuilder extends Component {
     this.setState({
       choices: newChoices
     })
+    console.log(this.props.match);
   }
 
   saveChoices = () => {
@@ -142,6 +143,8 @@ class ChoiceBuilder extends Component {
       .catch(error => {
         console.error(error);
       })
+    // this.props.history.push('/display');
+    window.location.href = 'http://www.balancegame.io/display'
   }
 
   render() {
