@@ -12,7 +12,9 @@ const options = (props) => {
         addNewOption={props.addNewOption}
         updateOption={props.changed}
         optionKeyHandler={props.optionKeyHandler}
-        type={props.type}></Option>
+        type={props.type}
+        votedCount={props.votedCount}
+        displayedOptions={props.displayedOptions}></Option>
     </div>
   )
 }

@@ -30,12 +30,29 @@ class ChoiceBuilder extends Component {
           text: ''
         }
       ]
-    }
+    },
+    votedCount: -1
   }
 
   componentDidMount() {
     this.props.setClick(this.saveChoices);
-    this.props.updateShowBtn();
+    if (!(this.props.match.path === '/display')) {
+      this.props.updateShowBtn();
+    } else {
+      axios.get('/8b7cba7d-048e-4455-816e-38c414dcb6d6')
+        .then(response => {
+          const choices = response.data.data.choices;
+          this.setState({
+            choices: choices
+          })
+          this.setState({
+            votedCount: response.data.data.votedCount
+          })
+        })
+        .catch(error => {
+          console.log(error);
+        })
+    }
   }
 
   addNewOption = (value) => {
@@ -131,24 +148,36 @@ class ChoiceBuilder extends Component {
     return (
       <section className={classes.ChoiceBuilder}>
         <article>
-          <Title changed={this.updateTitle} type='fst'/>
+          <Title 
+            changed={this.updateTitle} 
+            type='fst' 
+            title={this.state.choices[0].title}
+            votedCount={this.state.votedCount}/>
           <Options
             options={this.state.options} 
             addNewOption={this.addNewOption}
             changed={this.updateOption}
             optionKeyHandler={this.optionKeyHandler}
             type='fst'
+            votedCount={this.state.votedCount}
+            displayedOptions={this.state.choices[0]}
             />
         </article>
         <span className={classes.Versus}>vs</span>
         <article>
-          <Title changed={this.updateTitle} type='sec'/>
+          <Title 
+            changed={this.updateTitle} 
+            type='sec' 
+            title={this.state.choices[1].title}
+            votedCount={this.state.votedCount}/>
           <Options
             options={this.state.options} 
             addNewOption={this.addNewOption}
             changed={this.updateOption}
             optionKeyHandler={this.optionKeyHandler}
             type='sec'
+            votedCount={this.state.votedCount}
+            displayedOptions={this.state.choices[0]}
             />
         </article>
       </section>

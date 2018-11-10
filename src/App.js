@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom';
 import classes from './App.module.css';
 
 import ChoiceBuilder from './containers/ChoiceBuilder/ChoiceBuilder';
-import ChoiceDisplay from './containers/ChoiceDisplay/ChoiceDisplay';
 
 class App extends Component {
   state = {
@@ -17,11 +16,12 @@ class App extends Component {
   }
 
   render() {
-    const MyChoiceBuilder = () => (
+    const MyChoiceBuilder = (props) => (
         <ChoiceBuilder 
           setClick={click => this.saveChoices = click}
           showBtn={this.state.showBtn}
-          updateShowBtn={this.updateShowBtn}/>
+          updateShowBtn={this.updateShowBtn}
+          {...props}/>
       )
 
     let saveBtn;
@@ -38,7 +38,7 @@ class App extends Component {
       <div className={classes.App}>
         <Switch>
           <Route path="/" exact render={MyChoiceBuilder} />
-          <Route path="/display" component={ChoiceDisplay} />
+          <Route path="/display" render={MyChoiceBuilder} />
         </Switch>
         {saveBtn}
       </div>

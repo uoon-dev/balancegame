@@ -39,3 +39,33 @@
   color: transparent;
   border-color: transparent;
 }
+
+.Option .InputField .Checkbox {
+  width: 28px;
+  height: 30px;
+  transform: scale(2);
+} 
+
+.Option .VoteBtn {
+  width: 93px;
+  padding: 7px 7px;
+  align-self: center;
+  font-size: 18px;
+  border-radius: 20px;
+}
+
+@media (max-width: 700px) {
+  .Option {
+    width: 85%;
+  }
+
+  .Option input {
+    height: 14px;
+    font-size: 15px;
+    padding: 6px 12px;
+  }
+
+  .Option .InputField .Checkbox {
+    transform: scale(1);
+  }
+}

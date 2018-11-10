@@ -19,3 +19,15 @@
   outline: none;
   border-radius: 4px;
 }
+
+@media (max-width: 700px) {
+  .Title .MainTitle {
+    font-size: 20px;
+  }
+
+  .Title input {
+    width: 80%;
+    height: 20px;
+    font-size: 15px;
+  }
+}

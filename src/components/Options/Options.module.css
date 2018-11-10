@@ -11,3 +11,15 @@
   margin-left: 20%;
   color: white;
 }
+
+@media (max-width: 700px) {
+  .Options {
+    width: 100%;
+  }
+
+  .Options .SubTitle {
+    font-size: 16px;
+    margin-top: 20px;
+    margin-left: 8%;
+  }
+}

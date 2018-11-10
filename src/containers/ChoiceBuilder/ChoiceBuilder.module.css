@@ -18,3 +18,16 @@
   text-shadow: 2px 2px 2px #eee;
   margin-top: 80px;
 }
+
+@media (max-width: 700px) {
+  .ChoiceBuilder {
+    flex-direction: column;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .ChoiceBuilder .Versus {
+    font-size: 40px;
+    margin-top: 0;
+  }
+}
