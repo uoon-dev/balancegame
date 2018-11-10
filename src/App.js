@@ -1,17 +1,46 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { Route, Switch } from 'react-router-dom';
 import classes from './App.module.css';
 
-import ChoiceBuilder from './containers/ChoiceBuilder/ChoidBuilder';
+import ChoiceBuilder from './containers/ChoiceBuilder/ChoiceBuilder';
+import ChoiceDisplay from './containers/ChoiceDisplay/ChoiceDisplay';
 
 class App extends Component {
+  state = {
+    showBtn: false
+  }
+
+  updateShowBtn = () => {
+    this.setState({
+      showBtn: true
+    })
+  }
+
   render() {
-    return (
-      <div className={classes.App}>
-        <ChoiceBuilder setClick={click => this.saveChoices = click}/>
+    const MyChoiceBuilder = () => (
+        <ChoiceBuilder 
+          setClick={click => this.saveChoices = click}
+          showBtn={this.state.showBtn}
+          updateShowBtn={this.updateShowBtn}/>
+      )
+
+    let saveBtn;
+
+    if (this.state.showBtn) {
+      saveBtn = (
         <button 
-          className={classes.Submit}
-          onClick={() => this.saveChoices()}>등록하기</button>
+        className={classes.Submit}
+        onClick={() => this.saveChoices()}>등록하기</button>
+      )
+    }
+
+     return (
+      <div className={classes.App}>
+        <Switch>
+          <Route path="/" exact render={MyChoiceBuilder} />
+          <Route path="/display" component={ChoiceDisplay} />
+        </Switch>
+        {saveBtn}
       </div>
     );
   }

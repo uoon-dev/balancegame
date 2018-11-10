@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 
-import classes from './ChiceBuilder.module.css';
+import classes from './ChoiceBuilder.module.css';
 import Title from '../../components/Title/Title';
 import Options from '../../components/Options/Options';
+import axios from '../../axios-choice';
 
 class ChoiceBuilder extends Component {
   state = {
@@ -34,6 +35,7 @@ class ChoiceBuilder extends Component {
 
   componentDidMount() {
     this.props.setClick(this.saveChoices);
+    this.props.updateShowBtn();
   }
 
   addNewOption = (value) => {
@@ -112,7 +114,17 @@ class ChoiceBuilder extends Component {
     this.setState({
       choices: newChoices
     })
-    console.log(this.state.choices);
+    const result = {
+      choices: []
+    };
+    result.choices = newChoices;
+    axios.post('/', result)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.error(error);
+      })
   }
 
   render() {
